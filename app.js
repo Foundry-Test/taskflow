@@ -1,10 +1,10 @@
-const taskInput = document.getElementById('task-input');
-const addBtn = document.getElementById('add-btn');
-const taskList = document.getElementById('task-list');
-const emptyMessage = document.getElementById('empty-message');
-const categorySelect = document.getElementById('category-select');
+const taskInput = document.getElementById('taskInput');
+const addBtn = document.getElementById('addTaskBtn');
+const taskList = document.getElementById('taskList');
+const emptyMessage = document.getElementById('emptyMessage');
+const categorySelect = document.getElementById('categorySelect');
 const filterButtons = document.querySelectorAll('.filter-btn');
-const completionCounter = document.getElementById('completion-counter');
+const completionCounter = document.getElementById('completionCounter');
 
 const CATEGORIES = ['Work', 'Personal', 'Shopping'];
 
