@@ -3,6 +3,7 @@ const addBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
 const emptyMessage = document.getElementById('emptyMessage');
 const categorySelect = document.getElementById('categorySelect');
+const dueDateInput = document.getElementById('dueDateInput');
 const filterButtons = document.querySelectorAll('.filter-btn');
 const completionCounter = document.getElementById('completionCounter');
 
@@ -10,6 +11,15 @@ const CATEGORIES = ['Work', 'Personal', 'Shopping'];
 
 let tasks = [];
 let activeFilter = 'All';
+
+function isOverdue(task) {
+  if (!task.dueDate || task.completed) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(task.dueDate);
+  due.setHours(0, 0, 0, 0);
+  return due < today;
+}
 
 function updateCompletionCounter() {
   if (!completionCounter) return;
@@ -47,9 +57,10 @@ function renderTasks() {
 
   filteredTasks.forEach((task) => {
     const index = tasks.indexOf(task);
+    const overdue = isOverdue(task);
 
     const li = document.createElement('li');
-    li.className = 'task-item' + (task.completed ? ' completed' : '');
+    li.className = 'task-item' + (task.completed ? ' completed' : '') + (overdue ? ' overdue' : '');
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -75,6 +86,19 @@ function renderTasks() {
     li.appendChild(checkbox);
     li.appendChild(span);
     li.appendChild(categoryTag);
+
+    if (task.dueDate) {
+      const dueDateTag = document.createElement('span');
+      dueDateTag.className = 'due-date-tag' + (overdue ? ' due-date-overdue' : '');
+      const formattedDate = new Date(task.dueDate).toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+      dueDateTag.textContent = (overdue ? '⚠️ Overdue: ' : '📅 Due: ') + formattedDate;
+      li.appendChild(dueDateTag);
+    }
+
     li.appendChild(deleteBtn);
     taskList.appendChild(li);
   });
@@ -92,9 +116,11 @@ function addTask() {
   }
 
   const category = categorySelect ? categorySelect.value : 'Work';
+  const dueDate = dueDateInput && dueDateInput.value ? dueDateInput.value : null;
 
-  tasks.push({ title, completed: false, category });
+  tasks.push({ title, completed: false, category, dueDate });
   taskInput.value = '';
+  if (dueDateInput) dueDateInput.value = '';
   taskInput.focus();
   renderTasks();
 }

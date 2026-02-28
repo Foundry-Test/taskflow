@@ -27,6 +27,7 @@ h1 {
 }
 
 .input-area input[type="text"],
+.input-area input[type="date"],
 .input-area input {
   flex: 1;
   min-width: 0;
@@ -82,6 +83,39 @@ h1 {
 .input-area button:hover,
 #addTaskBtn:hover {
   background-color: #357abd;
+}
+
+/* Due date input row */
+.due-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.due-date-row label {
+  font-size: 0.9rem;
+  color: #555555;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.due-date-row input[type="date"] {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: 2px solid #d0d0d0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333333;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.due-date-row input[type="date"]:focus {
+  border-color: #4a90e2;
 }
 
 /* Category selector row */
@@ -211,7 +245,7 @@ h1 {
   border-radius: 8px;
   padding: 14px 18px;
   margin-bottom: 12px;
-  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+  transition: box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
 }
 
@@ -221,6 +255,47 @@ h1 {
 
 .task-item.completed {
   opacity: 0.6;
+}
+
+/* Overdue task highlight */
+.task-item.overdue {
+  background-color: #fff5f5;
+  border-color: #feb2b2;
+}
+
+.task-item.overdue:hover {
+  box-shadow: 0 2px 8px rgba(229, 62, 62, 0.15);
+}
+
+.task-item.overdue .task-title {
+  color: #c53030;
+}
+
+.task-item.overdue.completed {
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+}
+
+.task-item.overdue.completed .task-title {
+  color: #999999;
+}
+
+/* Due date display on task items */
+.task-due-date {
+  font-size: 0.78rem;
+  color: #888888;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.task-due-date.overdue {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+.task-due-date.due-today {
+  color: #d97706;
+  font-weight: 600;
 }
 
 .task-item .task-checkbox {
