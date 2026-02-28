@@ -16,7 +16,19 @@
         placeholder="Enter a new task..."
         autocomplete="off"
       />
+      <select id="categorySelect" aria-label="Select category">
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Shopping">Shopping</option>
+      </select>
       <button id="addTaskBtn">Add Task</button>
+    </div>
+    <div class="filter-area">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-filter="All">All</button>
+      <button class="filter-btn" data-filter="Work">Work</button>
+      <button class="filter-btn" data-filter="Personal">Personal</button>
+      <button class="filter-btn" data-filter="Shopping">Shopping</button>
     </div>
     <ul id="taskList"></ul>
     <p id="emptyMessage" class="empty-message">No tasks yet. Add one above!</p>
